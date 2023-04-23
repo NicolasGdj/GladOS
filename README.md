@@ -28,8 +28,7 @@ Merci à @ChatGPT pour l'écriture de ce passage.
 
 ### Commandes à réaliser
 
-```
-bash
+```bash
 git clone https://github.com/NicolasGdj/GladOS.git
 cd GladOS/
 make clean && make
