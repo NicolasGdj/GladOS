@@ -7,10 +7,15 @@ GladOS est un système d'exploitation développé par moi-même et [@BlueskyFr](
 Un système d'exploitation (OS) est un ensemble de programmes qui gère les ressources matérielles et logicielles d'un ordinateur. Il est composé de plusieurs parties, notamment :
 
 Kernel : Le noyau du système d'exploitation, responsable de la gestion des ressources et des services système.
+
 User : La partie utilisateur, qui contient les applications et les utilitaires pour les utilisateurs.
+
 Gestion de la mémoire : Le mécanisme qui gère l'allocation et la libération de la mémoire pour les processus.
+
 Gestion des processus : Le mécanisme qui gère la création, l'exécution, la terminaison et la priorité des processus. Les processus peuvent avoir différents états, tels que zombie, en attente d'I/O, etc.
+
 Shell inspiré de Glados du jeu Portal
+
 L'utilisation de GladOS est démontrée par un shell qui s'inspire de Glados, un personnage du jeu vidéo Portal. Le shell inclut plusieurs commandes pour interagir avec le système.
 
 Merci à @ChatGPT pour l'écriture de ce passage.
