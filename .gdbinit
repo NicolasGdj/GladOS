@@ -1,0 +1,1 @@
+add-symbol-file ./user/user.debug 0x1000000
