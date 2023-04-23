@@ -19,7 +19,24 @@ Merci à @ChatGPT pour l'écriture de ce passage.
 
 [Vidéo Youtube](https://youtu.be/RgJ948pzJxw)
 
-# Commandes du shell
+## Installation
+
+### Prérequis
+
+- Qemu
+- make
+
+### Commandes à réaliser
+
+```
+bash
+git clone https://github.com/NicolasGdj/GladOS.git
+cd GladOS/
+make clean && make
+qemu-system-x86_64 -kernel kernel/kernel.bin
+```
+
+## Commandes du shell
 
 - `help` : Affiche le message d'aide.
 - `exit` : Quitte le shell.
