@@ -1,73 +1,38 @@
-# Projet Kernel UwU
+# GladOS - Système d'exploitation
 
-## Phase 5 - protection & appels systèmes, userland
+GladOS est un système d'exploitation développé par moi-même et [@BlueskyFr](https://github.com/BlueskyFR) dans le cadre d'un projet à l'ENSIMAG.
 
-### 1 - Protection mémoire : Séparer la mémoire du noyau et de l'application (en utilisant la mémoire virtuelle si votre projet le requiert)
+## Qu'est-ce qu'un système d'exploitation ?
 
-- https://ensiwiki.ensimag.fr/images/6/61/Psys_kernel_user.pdf
-- https://ensiwiki.ensimag.fr/index.php?title=Projet_syst%C3%A8me_PC_:_2019_-_BALLEYDIER_Loic,_PIERRET_Arnaud#Phase_5_:_S.C3.A9paration_des_espaces_m.C3.A9moire_noyau_et_utilisateur_:_gestion_de_processus_utilisateur
-- https://ensiwiki.ensimag.fr/images/a/a0/PSE_PIT.pdf
-- https://ensiwiki.ensimag.fr/index.php?title=Projet_syst%C3%A8me_PC_:_2021_-_D%27EMMANUELE_Valentin,_VIGNAL_Nathan
+Un système d'exploitation (OS) est un ensemble de programmes qui gère les ressources matérielles et logicielles d'un ordinateur. Il est composé de plusieurs parties, notamment :
 
-- First : kernel -> user mode (Uniquement par retour d'int ou de deroutement, avec l'instruction iret
-- user -> kernel -> Déroutement logiciel, appel de int
-- Implementer deux piles (user & kernel) par processus
+Kernel : Le noyau du système d'exploitation, responsable de la gestion des ressources et des services système.
+User : La partie utilisateur, qui contient les applications et les utilitaires pour les utilisateurs.
+Gestion de la mémoire : Le mécanisme qui gère l'allocation et la libération de la mémoire pour les processus.
+Gestion des processus : Le mécanisme qui gère la création, l'exécution, la terminaison et la priorité des processus. Les processus peuvent avoir différents états, tels que zombie, en attente d'I/O, etc.
+Shell inspiré de Glados du jeu Portal
+L'utilisation de GladOS est démontrée par un shell qui s'inspire de Glados, un personnage du jeu vidéo Portal. Le shell inclut plusieurs commandes pour interagir avec le système.
 
-- syscalls: in `kernel/syscalls.h` + in `user/syscalls.S`
-    - `syscalls.S` calls `syscalls.h` methods by using int $49
-    
-User -> Kernel:
-* Passage vers la nouvelle pile 
-* Sauvegarde de ESP, EIP, EFLAGS
-* Exécution du prog traitant
+Merci à @ChatGPT pour l'écriture de ce passage.
 
-Kernel -> User:
-* Restauration de ESP, EIP et EFLAGS utilisateurs depuis la pile kernel
+## Démonstration
 
-Traitant (cf `kernel/clock_isr.S`:
-* Sauvegarde des registres
-* Traitement de l'exception
-* Restauration des registre
-* iret
+[Vidéo Youtube](https://youtu.be/RgJ948pzJxw)
 
-**Kernel stack**
+# Commandes du shell
 
-```
-|          | MAX (32 bit slots)
-+----------+ 
-|   ul_sw  | a pointer to the assembly function that switches to userland using iret
-+----------+  <- 512 + 6
-|  pt_func | the pointer to the function to run
-+----------+  <- 512 + 5
-|    CS    | Code Segment: 0x10 (kernel) or 0x43 (user)
-+----------+  <- 512 + 4
-|  EFLAGS  | Enable/disable interruptions: 0x0002 (kernel) or 0x0202 (user)
-+----------| <- 512 + 3
-|   %esp   | user_stack address
-+----------+ <- 512 + 2
-|    SS    | Stack Segment: 0x18 (kernel) or 0x4B (user) 
-+----------+ <- 512 + 1
-|    ...   |
-+----------|  <- p->kernel_stack
-|          | 0
-```
-
-**User stack**
-
-```
-     |          | MAX
-     +----------+  <- internal kernel_stack_size
-     |   arg    |
-     +----------+  <- ebp + 4
-     |   exit   |
-     +----------+  <- ssize, ebp
-     | local va |
-     +----------|
-     | local va |
-     +----------+
-     |  ret val |
-     +----------+
-     |    ...   |
-     +----------|  <- p->stack
-     |          | 0
-```
+- `help` : Affiche le message d'aide.
+- `exit` : Quitte le shell.
+- `echo <on/off>` : Active/Désactive le mode echo.
+- `reboot` : Redémarre le système.
+- `print <message>` : Affiche un message.
+- `clear` : Efface le terminal.
+- `sysinfo` : Affiche l'état du système.
+- `kill <id>` : Tue un processus.
+- `chprio <id> <prio>` : Change la priorité d'un processus.
+- `sleep <time>` : Dors pendant `<time>` secondes.
+- `tests` : Effectue une série de tests.
+- `qi` : Démarre un test d'intelligence.
+- `answer` : Compute the ultimate question of life, the Universe, and Everything.
+- `cake` : Make a cake.
+- `segfault` : Start a new dumb turret doing a segmentation fault.
