@@ -35,7 +35,7 @@ void clear_first_line();
 
 extern void console_putbytes(const char *s, int len);
 
-int input_buffer;
+extern int input_buffer;
 
 void init_input_buffer();
 

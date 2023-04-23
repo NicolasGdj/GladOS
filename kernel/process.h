@@ -63,7 +63,7 @@ typedef struct process {
 } Process;
 
 extern link activable_processes;
-Process *active_process;
+extern Process *active_process;
 
 //List of all sleeping processes waiting for an alarm
 extern link sleeping_processes;
